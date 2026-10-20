@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APQP Smart Review — 초도품 APQP 서류 정합성 검토</title>
+  <meta name="description" content="협력사 초도품 APQP 제출서류(Flow Chart·관리계획서·PFMEA·검사기준서·외주품 리스트)를 올려 문서 간 공정·관리항목 정합성을 규칙으로 검증하고, 누락·불일치 목록과 APQP 승인 검토 보고서를 만드는 브라우저 도구">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2313274b'/%3E%3Cpath d='M10 7h9l4 4v14H10z' fill='%238fb8ff'/%3E%3Cpath d='M13 18l3 3 5-6' stroke='%2313274b' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <!-- 같은 수강생의 과제 01(data10-07 「Quality Planner」)과 같은 틀: 왼쪽 메뉴 + 위 머리 — 2단계에서 협력사 품질 포털로 합칩니다 -->
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="메뉴">
+      <a class="side-brand" href="#/home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M9 5h10l5 5v17H9z" fill="currentColor"/><path d="M12.5 18l3 3 5-6" stroke="#13274b" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-text">APQP Smart Review<small>Supplier Quality Intelligence</small></span>
+      </a>
+      <nav class="side-nav" id="nav" aria-label="주 메뉴">
+        <a href="#/home" data-route="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>대시보드</span></a>
+        <a href="#/upload" data-route="upload"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span>서류 업로드</span></a>
+        <a href="#/review" data-route="review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 14l2 2 4-4.5"/></svg><span>정합성 검토</span></a>
+        <a href="#/matrix" data-route="matrix"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 9.5h17M3.5 15h17M9.5 3.5v17M15 3.5v17"/></svg><span>공정 대조표</span></a>
+        <a href="#/report" data-route="report"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg><span>승인 검토 보고서</span></a>
+        <a href="#/history" data-route="history"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.5"/><path d="M4 4v4.5h4.5M12 8v4.5l3 2"/></svg><span>검토 이력</span></a>
+      </nav>
+      <div class="side-bottom">
+        <nav aria-label="설정 메뉴"><a class="side-set" href="#/settings" data-route="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span>설정</span></a></nav>
+        <a class="side-ai" href="#/report"><span class="ai-dot" aria-hidden="true">AI</span><span>승인 검토 보고서 문장을<br>AI와 함께 다듬습니다.</span></a>
+      </div>
+    </aside>
+    <div class="side-backdrop" id="sideBackdrop" hidden></div>
+
+    <div class="content">
+      <header class="topbar">
+        <button type="button" class="menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="메뉴 열기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <a class="top-title" href="#/home">
+          <span class="top-name">APQP Smart Review</span>
+          <span class="top-sub">초도품 APQP 제출서류 정합성 검증 · 승인 검토</span>
+        </a>
+        <div class="top-user">
+          <svg class="avatar" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#e6ebf2"/><circle cx="20" cy="15.5" r="6.5" fill="#1b2a44"/><path d="M8 32c2-6 7-9 12-9s10 3 12 9" fill="#1b2a44"/></svg>
+          <span class="user-text"><span>부품품질팀 <span class="bar-sep" aria-hidden="true">|</span> 이준호</span><span id="nowText" class="now"></span></span>
+        </div>
+      </header>
+
+      <div id="sampleBanner" class="sample-banner" hidden>지금 보이는 것은 <strong>예시 데이터</strong>입니다. 협력사 B·품번 SMP-2041·외주처 가/나 는 모두 지어낸 가상의 값입니다(1차 제출 + 2차 재제출).</div>
+      <div id="storeBanner" class="store-banner" hidden>이 브라우저에서는 저장소를 쓸 수 없어, 창을 닫으면 데이터가 사라집니다. 설정에서 JSON 백업을 받아 두세요.</div>
+
+      <main id="main" class="inner main" tabindex="-1"></main>
+
+      <footer class="site-footer">
+        <div class="inner">1단계 시연판 · APQP 서류는 서버로 보내지 않고 이 브라우저 안에서만 읽고·대조하고·저장합니다</div>
+      </footer>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <dialog id="dialog" class="dialog">
+    <form method="dialog" class="dialog-body" id="dialogForm">
+      <h2 id="dialogTitle"></h2>
+      <div id="dialogContent"></div>
+      <div class="dialog-actions" id="dialogActions"></div>
+    </form>
+  </dialog>
+
+  <!-- 로컬 파일(file://)로 열어도 돌도록 module 이 아닌 일반 스크립트로 불러옵니다 -->
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ai-endpoint.js"></script>
+  <script src="js/ai-panel.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
